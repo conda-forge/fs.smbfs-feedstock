@@ -6,20 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/f/fs.smbfs/fs.smbfs-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/f/fs.smbfs/fs.smbfs-{{ version }}.tar.gz
   sha256: 862bca01a769bfa3c14fc2788d7492c13d529d0c717c37abe1568440a290707a
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   host:
-    - python >=3
+    - python {{ python_min }}
     - pip
+    - setuptools
   run:
-    - python >=3
+    - python >={{ python_min }}
     - fs >=2.4
     - pysmb >=1.1.22,!=1.1.26,!=1.1.29,<=1.2.9.1
     - six >=1.10.0,<2
@@ -29,6 +30,7 @@ test:
     - fs.smbfs
   requires:
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
 
